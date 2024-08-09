@@ -15,7 +15,7 @@ class Project(models.Model):
     name = models.CharField(max_length=120)
     description = models.TextField()
     proj_type = models.CharField(max_length=20, choices=[["p", "Personal"], ["w", "Work"]])
-    employer = models.ForeignKey(Experience, blank=True, null=True)
+    employer = models.ForeignKey(Experience, blank=True, null=True, on_delete=models.SET_NULL)
     link = models.URLField()
     tech_used = models.ManyToManyField(Technology, blank=True)
     start_date = models.DateField()
