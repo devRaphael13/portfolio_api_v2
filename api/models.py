@@ -30,4 +30,7 @@ class Project(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    class Meta:
+        ordering = ["-start_date"]
+
 
