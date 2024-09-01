@@ -11,6 +11,7 @@ class Experience(models.Model):
     position = models.CharField(max_length=120)
     description = models.TextField()
     tech_used = models.ManyToManyField(Technology, blank=True)
+    featured = models.BooleanField(default=False)
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
 
@@ -24,6 +25,7 @@ class Project(models.Model):
     employer = models.ForeignKey(Experience, blank=True, null=True, on_delete=models.SET_NULL)
     link = models.URLField()
     tech_used = models.ManyToManyField(Technology, blank=True)
+    featured = models.BooleanField(default=False)
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
 

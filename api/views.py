@@ -14,6 +14,21 @@ class ExpViewSet(ModelViewSet):
     queryset = Experience.objects.all()
     serializer_class = ExpSerializer
 
+    def filter_queryset(self, queryset):
+        params = self.request.query_params
+        featured = params.get("featured")
+
+        if featured:
+            queryset = queryset.filter(featured=True)
+        return super().filter_queryset(queryset)
 class ProjViewSet(ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjSerializer
+
+    def filter_queryset(self, queryset):
+        params = self.request.query_params
+        featured = params.get("featured")
+
+        if featured:
+            queryset = queryset.filter(featured=True)
+        return super().filter_queryset(queryset)
