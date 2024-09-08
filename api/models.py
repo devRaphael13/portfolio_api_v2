@@ -23,7 +23,7 @@ class Project(models.Model):
     description = models.TextField()
     proj_type = models.CharField(max_length=20, choices=[["p", "Personal"], ["w", "Work"]])
     employer = models.ForeignKey(Experience, blank=True, null=True, on_delete=models.SET_NULL)
-    link = models.URLField()
+    link = models.URLField(blank=True, null=True)
     tech_used = models.ManyToManyField(Technology, blank=True)
     featured = models.BooleanField(default=False)
     start_date = models.DateField()

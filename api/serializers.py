@@ -27,3 +27,13 @@ class ProjSerializer(TechRepr, ModelSerializer):
     class Meta:
         model = Project
         fields = "__all__"
+
+    def to_representation(self, instance):
+        repr = super().to_representation(instance)
+        employer = repr.get("employer")
+
+        if employer:
+            repr["employer"] = employer.company
+        else:
+            repr["employer"] = "Personal Project"
+        return repr

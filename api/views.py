@@ -21,6 +21,7 @@ class ExpViewSet(ModelViewSet):
         if featured:
             queryset = queryset.filter(featured=True)
         return super().filter_queryset(queryset)
+
 class ProjViewSet(ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjSerializer
