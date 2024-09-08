@@ -33,7 +33,7 @@ class ProjSerializer(TechRepr, ModelSerializer):
         employer = repr.get("employer")
 
         if employer:
-            repr["employer"] = employer.company
+            repr["employer"] = instance.employer.company
         else:
             repr["employer"] = "Personal Project"
         return repr
