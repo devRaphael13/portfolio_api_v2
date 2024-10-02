@@ -30,6 +30,9 @@ class ProjViewSet(ModelViewSet):
         params = self.request.query_params
         featured = params.get("featured")
 
-        if featured:
+        if featured == "true":
             queryset = queryset.filter(featured=True)
+
+        else:
+            queryset = queryset.filter(featured=False)
         return super().filter_queryset(queryset)
