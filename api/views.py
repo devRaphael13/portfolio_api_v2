@@ -33,6 +33,7 @@ class ProjViewSet(ModelViewSet):
         if featured == "true":
             queryset = queryset.filter(featured=True)
 
-        else:
+        elif featured == "false":
             queryset = queryset.filter(featured=False)
+            
         return super().filter_queryset(queryset)
