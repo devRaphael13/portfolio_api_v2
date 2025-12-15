@@ -11,5 +11,5 @@ router.register("api/services", ServViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("api/profile", ProfileAPIView.as_view()),
+    path("api/profile/", ProfileAPIView.as_view()),
 ]
