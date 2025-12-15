@@ -8,7 +8,7 @@ router.register("api/projects", ProjViewSet)
 router.register("api/experiences", ExpViewSet)
 router.register("api/technologies", TechViewSet)
 router.register("api/services", ServViewSet)
-router.register("api/profile", ProfileViewSet)
+router.register("api/profile", ProfileViewSet, basename="profile")
 
 urlpatterns = [
     path("", include(router.urls))

@@ -1,4 +1,3 @@
-from tkinter import N
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -36,36 +35,39 @@ class ProjViewSet(ModelViewSet):
         return super().filter_queryset(queryset)
 
 class ProfileViewSet(ViewSet):
-    profile = Profile.objects.first()
-    queryset = Profile.objects.all()
+    
+    def get_profile(self):
+        return Profile.objects.first()
 
     def list(self, request, *args, **kwargs):
-        serializer = ProfileSerializer(self.profile)
+        profile = self.get_profile()
+        if not profile:
+            return Response({}, status=status.HTTP_200_OK)
+
+        serializer = ProfileSerializer(profile)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=["GET"], detail=False)
     def resume(self, request, *args, **kwargs):
+        profile = self.get_profile()
         resume_url = None
 
-        if self.profile.resume:
-            resume_url = self.profile.resume.url
+        if profile and profile.resume:
+            resume_url = profile.resume.url
 
-        data = {
-            "resume": resume_url
-        }
+        data = {"resume": resume_url}
 
         return Response(data, status=status.HTTP_200_OK)
 
     @action(methods=["GET"], detail=False)
     def profile_img(self, request, *args, **kwargs):
+        profile = self.get_profile()
         image_url = None
 
-        if self.profile.profile_img:
-            image_url = self.profile.profile_img.url
+        if profile and profile.profile_img:
+            image_url = profile.profile_img.url
 
-        data = {
-            "profile_img": image_url
-        }
+        data = {"profile_img": image_url}
 
         return Response(data, status=status.HTTP_200_OK)
 
