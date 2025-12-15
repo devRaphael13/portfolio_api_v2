@@ -37,6 +37,7 @@ class ProjViewSet(ModelViewSet):
 
 class ProfileViewSet(ViewSet):
     profile = Profile.objects.first()
+    queryset = Profile.objects.all()
 
     def list(self, request, *args, **kwargs):
         serializer = ProfileSerializer(self.profile)
