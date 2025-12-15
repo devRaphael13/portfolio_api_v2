@@ -1,8 +1,8 @@
+from tkinter import N
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet, ViewSet
 
 from .models import Experience, Project, Technology, Service, Profile
 from .serializers import ExpSerializer, ProjSerializer, TechSerializer, ServSerializer, ProfileSerializer
@@ -35,11 +35,39 @@ class ProjViewSet(ModelViewSet):
             queryset = queryset.filter(featured=True)
         return super().filter_queryset(queryset)
 
-class ProfileAPIView(APIView):
-    def get(self, request, *args, **kwargs):
-        profile = Profile.objects.first()
-        serializer = ProfileSerializer(profile)
+class ProfileViewSet(ViewSet):
+    profile = Profile.objects.first()
+
+    def list(self, request, *args, **kwargs):
+        serializer = ProfileSerializer(self.profile)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(methods=["GET"], detail=False)
+    def resume(self, request, *args, **kwargs):
+        resume_url = None
+
+        if self.profile.resume:
+            resume_url = self.profile.resume.url
+
+        data = {
+            "resume": resume_url
+        }
+
+        return Response(data, status=status.HTTP_200_OK)
+
+    @action(methods=["GET"], detail=False)
+    def profile_img(self, request, *args, **kwargs):
+        image_url = None
+
+        if self.profile.profile_img:
+            image_url = self.profile.profile_img.url
+
+        data = {
+            "profile_img": image_url
+        }
+
+        return Response(data, status=status.HTTP_200_OK)
+
 
 class ServViewSet(ModelViewSet):
     queryset = Service.objects.all()
