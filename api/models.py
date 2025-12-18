@@ -21,6 +21,7 @@ class Service(models.Model):
     features = ArrayField(models.CharField(max_length=240), size=4)
     icon_name = models.CharField(max_length=50)
     icon_library = models.CharField(max_length=10)
+    icon_colour = models.CharField(max_length=120)
 
     def __str__(self) -> str:
         return self.name
@@ -29,6 +30,7 @@ class Technology(models.Model):
     name = models.CharField(max_length=120)
     icon_name = models.CharField(max_length=50)
     icon_library = models.CharField(max_length=10)
+    icon_colour = models.CharField(max_length=120)
 
     def __str__(self) -> str:
         return self.name
