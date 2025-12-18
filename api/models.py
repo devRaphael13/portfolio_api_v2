@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 from cloudinary.models import CloudinaryField
 
 class Profile(models.Model):
@@ -16,18 +17,18 @@ class Profile(models.Model):
 
 class Service(models.Model):
     name = models.CharField(max_length=120)
-    thumbnail = CloudinaryField(resource_type="image", folder="portfolio/services_thumnails/", blank=True, null=True)
     tag_line = models.CharField(max_length=240)
-    description = models.TextField(blank=True, null=True)
+    features = ArrayField(models.CharField(max_length=240), size=4)
+    icon_name = models.CharField(max_length=50)
+    icon_library = models.CharField(max_length=10)
+
+    def __str__(self) -> str:
+        return self.name
     
 class Technology(models.Model):
     name = models.CharField(max_length=120)
-    icon_name = models.CharField(
-        max_length=50, 
-        blank=True, 
-        null=True,
-        help_text="React Icon component name (e.g., 'FaReact', 'SiPython', 'DiDjango')"
-    )
+    icon_name = models.CharField(max_length=50)
+    icon_library = models.CharField(max_length=10)
 
     def __str__(self) -> str:
         return self.name
