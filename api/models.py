@@ -47,6 +47,9 @@ class Experience(models.Model):
     def __str__(self) -> str:
         return self.company
 
+    class Meta:
+        ordering = ["-start_date"]
+
 class Project(models.Model):
     name = models.CharField(max_length=120)
     description = models.TextField()
