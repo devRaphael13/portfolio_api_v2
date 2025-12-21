@@ -11,6 +11,11 @@ class Profile(models.Model):
     about = models.TextField()
     resume = CloudinaryField(resource_type="auto", folder="portfolio/resumes/")
     years_of_exp = models.PositiveBigIntegerField()
+    linkedin_url = models.URLField()
+    github_url = models.URLField()
+    state = models.CharField(max_length=20)
+    city = models.CharField(max_length=20)
+    country = models.CharField(max_length=20)
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
@@ -66,5 +71,12 @@ class Project(models.Model):
 
     class Meta:
         ordering = ["-start_date"]
+
+class Message(models.Model):
+    full_name = models.CharField(max_length=120)
+    email = models.EmailField()
+    subject = models.CharField(max_length=120)
+    message = models.TextField()
+    
 
 

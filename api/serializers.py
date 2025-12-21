@@ -1,6 +1,6 @@
 from itertools import chain
 from rest_framework.serializers import ModelSerializer
-from .models import Technology, Experience, Project, Service, Profile
+from .models import Message, Technology, Experience, Project, Service, Profile
 
 class TechSerializer(ModelSerializer):
     class Meta:
@@ -36,6 +36,7 @@ class ServSerializer(ModelSerializer):
         merged = instance.features + features
         validated_data['features'] = list(dict.fromkeys(merged))
         return super().update(instance, validated_data)
+
 class ProfileSerializer(ModelSerializer):
 
     class Meta:
@@ -49,3 +50,11 @@ class ProfileSerializer(ModelSerializer):
         if instance.resume:
             representation['resume'] = str(instance.resume.url)
         return representation
+
+
+class MsgSerializer(ModelSerializer):
+
+    class Meta:
+        model = Message
+        fields = "__all__"
+        

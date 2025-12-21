@@ -3,8 +3,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ViewSet
 
-from .models import Experience, Project, Technology, Service, Profile
-from .serializers import ExpSerializer, ProjSerializer, TechSerializer, ServSerializer, ProfileSerializer
+from .models import Experience, Message, Project, Technology, Service, Profile
+from .serializers import ExpSerializer, MsgSerializer, ProjSerializer, TechSerializer, ServSerializer, ProfileSerializer
 
 class TechViewSet(ModelViewSet):
     queryset = Technology.objects.all()
@@ -76,3 +76,7 @@ class ServViewSet(ModelViewSet):
     queryset = Service.objects.all()
     serializer_class = ServSerializer
 
+class MsgViewSet(ModelViewSet):
+    queryset = Message.objects.all()
+    serializer_class = MsgSerializer
+    
